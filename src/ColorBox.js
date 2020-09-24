@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './ColorBox.css'
+import "./ColorBox.css";
 class ColorBox extends Component {
   constructor(props) {
     super(props);
@@ -7,13 +7,12 @@ class ColorBox extends Component {
   }
   render() {
     return (
-      <div
-        className="ColorBox"
-        style={{ backgroundColor: this.props.color }}
-      >
+      <div className="ColorBox" style={{ backgroundColor: this.props.color }}>
         <span className="ColorBox-color-name">{this.props.name}</span>
-        <button onClick = {this.copyColor} className="ColorBox-button">Copy</button>
-
+        <button onClick={this.copyColor} className="ColorBox-button">
+          Copy
+        </button>
+        <span className="ColorBox-see-more">More</span>
       </div>
     );
   }
