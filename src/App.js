@@ -8,7 +8,7 @@ import { colorsGenerator } from "./helperFunctions";
 function App() {
   return (
     <div className="App">
-      <Palette palette={colorsGenerator(seedColors[7]).colors} />
+      <Palette palette={colorsGenerator(seedColors[7])} />
     </div>
   );
 }
