@@ -35,6 +35,7 @@ class Palette extends Component {
   }
   render() {
     const { level, type, snackBarOpen } = this.state;
+    const { colors, paletteName, emoji } = this.props.palette;
     return (
       <div className="Palette">
         <NavBar
@@ -47,7 +48,7 @@ class Palette extends Component {
           type={type}
         />
         <div className="Palette-Colors">
-          {this.props.palette[level].map((color) => {
+          {colors[level].map((color) => {
             return (
               <ColorBox color={color[type]} name={color.name} key={color.id} />
             );
@@ -73,6 +74,10 @@ class Palette extends Component {
             </IconButton>
           }
         />
+        <footer className="Palette-footer">
+          <p className="Footer-name">{paletteName}</p>
+          <span className="Footer-emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }
