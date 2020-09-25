@@ -9,6 +9,8 @@ class ColorBox extends Component {
   }
 
   copyColor() {
+    //* Effect to show the copied color message overlay only for a sec or two
+    //* while 'copied' is true
     this.setState({ copied: true }, () => {
       setTimeout(() => {
         this.setState({ copied: false });
@@ -20,6 +22,12 @@ class ColorBox extends Component {
     const { color, name } = this.props;
     const isCopied = this.state.copied;
     return (
+      /**
+       * *when comp. is clicked, the color is copied,
+       * * onCopy method is called, which sets state to 'copied: true'
+       * * which adds the show class to the overlay
+       * * after a moment the show class is removed
+       **/
       <CopyToClipboard text={color} onCopy={this.copyColor}>
         <div className="ColorBox" style={{ backgroundColor: color }}>
           <div
@@ -32,9 +40,7 @@ class ColorBox extends Component {
           </div>
 
           <span className="ColorBox-color-name">{name}</span>
-          <button onClick={this.copyColor} className="ColorBox-button">
-            Copy
-          </button>
+          <button className="ColorBox-button">Copy</button>
           <span className="ColorBox-see-more">More</span>
         </div>
       </CopyToClipboard>

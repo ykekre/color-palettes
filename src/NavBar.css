@@ -1,0 +1,38 @@
+.NavBar {
+  height: 6vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+.NavBar-logo {
+  padding: 10px 0px;
+  font-size: 1.6rem;
+  font-family: 'Pacifico', cursive;
+  font-weight: 200;
+  background-color: #fadb9c;
+  color: #206366
+}
+
+.NavBar span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  padding: 5px;
+  color: rgba(0, 0, 0, 0.54)
+}
+
+.NavBar-select-dropdown {
+  display: flex;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.NavBar-select-dropdown #-select-label {
+  align-self: center;
+  margin: 0 10px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  padding: 5px;
+}
