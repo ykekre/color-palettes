@@ -51,9 +51,9 @@ class NavBar extends Component {
             //* onchange --> handleChange ---> changeColorFormat(defined in palette, the parent comp.)
             onChange={this.handleChange}
           >
-            <MenuItem value={"hex"}>HEX #AA1988</MenuItem>
-            <MenuItem value={"rgb"}>RGB rgb(170,25,136)</MenuItem>
-            <MenuItem value={"rgba"}>RGBA rgba(170,25,136,1)</MenuItem>
+            <MenuItem value={"hex"}>HEX #ffffff</MenuItem>
+            <MenuItem value={"rgb"}>RGB rgb(255,255,255)</MenuItem>
+            <MenuItem value={"rgba"}>RGBA rgba(255,255,255,1.0)</MenuItem>
           </Select>
         </div>
       </div>

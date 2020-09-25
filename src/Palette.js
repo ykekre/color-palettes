@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import ColorBox from "./ColorBox";
 import NavBar from "./NavBar";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import "./Palette.css";
 class Palette extends Component {
   constructor(props) {
     super(props);
-    this.state = { level: 500, type: "hex" };
+    this.state = { level: 500, type: "hex", snackBarOpen: false };
     this.changeLevel = this.changeLevel.bind(this);
     this.changeColorFormat = this.changeColorFormat.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   changeLevel(newLevel) {
@@ -20,10 +24,17 @@ class Palette extends Component {
     //* it can communicate back what color format was chosen by user
     this.setState({
       type: type,
+      snackBarOpen: true,
+    });
+  }
+
+  handleClose() {
+    this.setState({
+      snackBarOpen: false,
     });
   }
   render() {
-    const { level, type } = this.state;
+    const { level, type, snackBarOpen } = this.state;
     return (
       <div className="Palette">
         <NavBar
@@ -37,9 +48,31 @@ class Palette extends Component {
         />
         <div className="Palette-Colors">
           {this.props.palette[level].map((color) => {
-            return <ColorBox color={color[type]} name={color.name} />;
+            return (
+              <ColorBox color={color[type]} name={color.name} key={color.id} />
+            );
           })}
         </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={snackBarOpen}
+          autoHideDuration={3000}
+          onClose={this.handleClose}
+          message={`Format Changed to ${type.toUpperCase()}`}
+          action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={this.handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          }
+        />
       </div>
     );
   }
