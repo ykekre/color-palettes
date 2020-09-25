@@ -18,7 +18,11 @@ const colorsGenerator = (starterPalette) => {
   };
 
   const generateScale = (baseColor, noOfColors) => {
-    return chroma.scale(getRange(baseColor.color)).mode("lab").colors(noOfColors);
+    return chroma
+      .scale(getRange(baseColor.color))
+      .mode("lab")
+      .colors(noOfColors)
+      .reverse();
   };
 
   for (const iThColor of starterPalette.colors) {
@@ -29,17 +33,14 @@ const colorsGenerator = (starterPalette) => {
     for (const [index, shade] of iThColorScale.entries()) {
       newPallete.colors[levels[index]].push({
         name: `${iThColor.name} ${levels[index]}`,
-        id: iThColor.name.toLowerCase().replace(/\s/g, '-'),
-        hex: iThColor.color,
-        rgb: chroma(iThColor.color).css(),
-        rgba: chroma(iThColor.color).css().replace('rgb', 'rgba').replace(')', ',1.0)')
-      })
+        id: iThColor.name.toLowerCase().replace(/\s/g, "-"),
+        hex: shade,
+        rgb: chroma(shade).css(),
+        rgba: chroma(shade).css().replace("rgb", "rgba").replace(")", ",1.0)"),
+      });
     }
-
   }
-  return newPallete
+  return newPallete;
 };
 
-export {
-  colorsGenerator
-};
+export { colorsGenerator };
