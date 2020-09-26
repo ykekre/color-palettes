@@ -44,10 +44,10 @@ const styles = {
 };
 function MiniPalette(props) {
   const { classes } = props;
-  const { colors, emoji, paletteName } = props.palette;
+  const { colors, emoji, paletteName, id } = props.palette;
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={() => props.handleClick(id)}>
       <div className={classes.container}>
         {colors.map((c) => {
           return (

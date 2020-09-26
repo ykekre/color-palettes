@@ -50,18 +50,19 @@ const styles = {
     width: "30%",
     height: "25%",
     margin: "1% 1%",
-
-    "& a": {
-      textDecoration: "none",
-    },
   },
 };
 class PaletteList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.goToPaletteID = this.goToPaletteID.bind(this);
   }
 
+  goToPaletteID(id) {
+    console.log(id, this.props);
+    this.props.history.push(`/palettes/${id}`);
+  }
   render() {
     const { classes, palettes } = this.props;
     return (
@@ -77,9 +78,9 @@ class PaletteList extends Component {
           {palettes.map((p) => {
             return (
               <div className={classes.eachPalette} key={p.id}>
-                <Link to={`/palettes/` + p.id}>
-                  <MiniPalette palette={p} />
-                </Link>
+                {/* <Link to={`/palettes/` + p.id}> */}
+                <MiniPalette palette={p} handleClick={this.goToPaletteID} />
+                {/* </Link> */}
               </div>
             );
           })}
