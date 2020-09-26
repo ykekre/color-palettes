@@ -3,6 +3,7 @@ import Slider from "react-input-slider";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 class NavBar extends Component {
   constructor(props) {
@@ -19,7 +20,9 @@ class NavBar extends Component {
     const { level } = this.props;
     return (
       <div className="NavBar">
-        <h3 className="NavBar-logo">Palette-Picker</h3>
+        <Link to="/" className="NavBar-logo">
+          Palette-Picker
+        </Link>
         <span>Level: {level}</span>
         <Slider
           axis="x"
