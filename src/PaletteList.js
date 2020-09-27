@@ -61,6 +61,7 @@ class PaletteList extends Component {
 
   goToPaletteID(id) {
     console.log(id, this.props);
+    //* add the url with this paletteID to history and open the url immediately
     this.props.history.push(`/palettes/${id}`);
   }
   render() {
@@ -78,7 +79,13 @@ class PaletteList extends Component {
           {palettes.map((p) => {
             return (
               <div className={classes.eachPalette} key={p.id}>
-                {/* <Link to={`/palettes/` + p.id}> */}
+                {/**
+                 ** Removed the <Link> tags because it was adding unwanted <a> tag styling on the text on minipalettes at time of render
+                 ** decided to go with history.push approach
+
+                * Take the paletteId and push it to history object to add it
+                *in the url}
+                { <Link to={`/palettes/` + p.id}> */}
                 <MiniPalette palette={p} handleClick={this.goToPaletteID} />
                 {/* </Link> */}
               </div>

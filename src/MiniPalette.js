@@ -47,6 +47,7 @@ function MiniPalette(props) {
   const { colors, emoji, paletteName, id } = props.palette;
 
   return (
+    //* handleClick will invoke and pass the id param to gotoPaletteID function
     <div className={classes.root} onClick={() => props.handleClick(id)}>
       <div className={classes.container}>
         {colors.map((c) => {
