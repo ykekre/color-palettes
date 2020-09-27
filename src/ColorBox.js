@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
+import chroma from "chroma-js";
 import "./ColorBox.css";
 class ColorBox extends Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class ColorBox extends Component {
   render() {
     const { color, name, paletteId, colorId, isForSingleColor } = this.props;
     const isCopied = this.state.copied;
+    const luminosity = chroma(color).luminance().toFixed(2);
+    console.log(chroma(color).luminance());
     return (
       /**
        * *when comp. is clicked, the color is copied,
@@ -44,13 +47,30 @@ class ColorBox extends Component {
             className={`CopyOverlay ${isCopied ? "show" : ""}`}
             style={{ backgroundColor: color }}
           />
-          <div className={`CopyOverlay-message ${isCopied ? "show" : ""}`}>
+          <div
+            className={`CopyOverlay-message ${isCopied ? "show" : ""} ${
+              luminosity >= 0.7 ? "darker" : "lighter"
+            }`}
+          >
             <h1>Copied!</h1>
             <p>{color}</p>
           </div>
 
-          <span className="ColorBox-color-name">{name}</span>
-          <button className="ColorBox-button">Copy</button>
+          <span
+            className={`ColorBox-color-name ${
+              luminosity >= 0.7 ? "darker" : "lighter"
+            }`}
+          >
+            {name}
+          </span>
+          <button
+            className={`ColorBox-button ${
+              luminosity >= 0.7 ? "darker" : "lighter"
+            }`}
+          >
+            Copy
+          </button>
+
           <Link
             to={`/palettes/${paletteId}/${colorId}`}
             /**
@@ -60,7 +80,13 @@ class ColorBox extends Component {
              */
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="ColorBox-see-more">More</span>
+            <span
+              className={`ColorBox-see-more ${
+                luminosity >= 0.7 ? "darker" : "lighter"
+              }`}
+            >
+              More
+            </span>
           </Link>
         </div>
       </CopyToClipboard>
