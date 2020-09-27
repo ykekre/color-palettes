@@ -1,7 +1,7 @@
 import chroma from "chroma-js";
 
-const colorsGenerator = (starterPalette) => {
-  const newPallete = {
+const colorsGenerator = (starterPalette, colorId) => {
+  const newPalette = {
     paletteName: starterPalette.paletteName,
     id: starterPalette.id,
     emoji: starterPalette.emoji,
@@ -11,7 +11,7 @@ const colorsGenerator = (starterPalette) => {
   const levels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
   for (const level of levels) {
-    newPallete.colors[level] = [];
+    newPalette.colors[level] = [];
   }
   const getRange = (baseColor) => {
     return [chroma(baseColor).darken(1.5), baseColor, "#ffffff"];
@@ -31,7 +31,7 @@ const colorsGenerator = (starterPalette) => {
 
     //* Add each individual shade of this scale to the respective element of newPalette.colors object
     for (const [index, shade] of iThColorScale.entries()) {
-      newPallete.colors[levels[index]].push({
+      newPalette.colors[levels[index]].push({
         name: `${iThColor.name} ${levels[index]}`,
         id: iThColor.name.toLowerCase().replace(/\s/g, "-"),
         hex: shade,
@@ -40,7 +40,40 @@ const colorsGenerator = (starterPalette) => {
       });
     }
   }
-  return newPallete;
+
+  if (colorId) {
+    /**
+     * *If colorId exists it means this function has been called to generate a palette for a single color. So we traverse the newPalette which has all the shades for all the color and then based on colorID we only pick the matching shades and add it to a separate array and create a palette and return
+     *
+     */
+
+    const singleColorScale = [];
+    for (const colorLevel in newPalette.colors) {
+      if (newPalette.colors.hasOwnProperty(colorLevel)) {
+        const colorLevelArr = newPalette.colors[colorLevel];
+
+        for (const color of colorLevelArr) {
+          if (color.id === colorId) {
+            singleColorScale.push({
+              name: color.name,
+              id: color.id,
+              hex: color.hex,
+              rgb: color.rgb,
+              rgba: color.rgba,
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      paletteName: starterPalette.paletteName,
+      id: starterPalette.id,
+      emoji: starterPalette.emoji,
+      colors: singleColorScale.slice(1),
+    };
+  }
+  return newPalette;
 };
 
 export { colorsGenerator };

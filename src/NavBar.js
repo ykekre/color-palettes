@@ -16,14 +16,21 @@ class NavBar extends Component {
     //* communicate back to Palette comp state, what new color format is
     this.props.changeColorFormat(e.target.value);
   }
+  static defaultProps = {
+    isForSingleColor: false,
+  };
   render() {
-    const { level } = this.props;
+    const { level, changeLevel, type, isForSingleColor } = this.props;
     return (
       <div className="NavBar">
         <Link to="/" className="NavBar-logo">
           Palette-Picker
         </Link>
-        <span>Level: {level}</span>
+        {/** ** if isForSingleColor is true then this nav comp. is being rendered
+         ** for a single palette so we dont show this element */}
+        <span className={isForSingleColor ? "hide" : undefined}>
+          Level: {level}
+        </span>
         <Slider
           axis="x"
           xstep={100}
@@ -31,7 +38,11 @@ class NavBar extends Component {
           xmax={900}
           x={level}
           //* communicate back to Palette comp state, what new level is
-          onChange={this.props.changeLevel}
+          onChange={changeLevel}
+          /**
+           ** if isForSingleColor is true then this nav comp. is being rendered * for a single palette so we dont show this element
+           */
+          className={`${isForSingleColor && "hide"} navSlider`}
           styles={{
             track: {
               backgroundColor: "#e6e3e8",
@@ -49,7 +60,7 @@ class NavBar extends Component {
             Copy Format
           </InputLabel>
           <Select
-            value={this.props.type}
+            value={type}
             className="NavBar-select-menu"
             //* onchange --> handleChange ---> changeColorFormat(defined in palette, the parent comp.)
             onChange={this.handleChange}

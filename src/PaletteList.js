@@ -60,7 +60,6 @@ class PaletteList extends Component {
   }
 
   goToPaletteID(id) {
-    console.log(id, this.props);
     //* add the url with this paletteID to history and open the url immediately
     this.props.history.push(`/palettes/${id}`);
   }

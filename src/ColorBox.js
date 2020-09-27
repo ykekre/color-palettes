@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import "./ColorBox.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Link } from "react-router-dom";
+import "./ColorBox.css";
 class ColorBox extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +9,9 @@ class ColorBox extends Component {
     this.copyColor = this.copyColor.bind(this);
   }
 
+  static defaultProps = {
+    isForSingleColor: false,
+  };
   copyColor() {
     //* Effect to show the copied color message overlay only for a sec or two
     //* while 'copied' is true
@@ -19,7 +23,7 @@ class ColorBox extends Component {
   }
 
   render() {
-    const { color, name } = this.props;
+    const { color, name, paletteId, colorId, isForSingleColor } = this.props;
     const isCopied = this.state.copied;
     return (
       /**
@@ -29,7 +33,13 @@ class ColorBox extends Component {
        * * after a moment the show class is removed
        **/
       <CopyToClipboard text={color} onCopy={this.copyColor}>
-        <div className="ColorBox" style={{ backgroundColor: color }}>
+        <div
+          /**
+           * *if isForSingleColor is true it means this colorbox is to be rendered for a single palette, so it will be with a larger height
+           */
+          className={`ColorBox ${isForSingleColor && "larger"}`}
+          style={{ backgroundColor: color }}
+        >
           <div
             className={`CopyOverlay ${isCopied ? "show" : ""}`}
             style={{ backgroundColor: color }}
@@ -41,7 +51,17 @@ class ColorBox extends Component {
 
           <span className="ColorBox-color-name">{name}</span>
           <button className="ColorBox-button">Copy</button>
-          <span className="ColorBox-see-more">More</span>
+          <Link
+            to={`/palettes/${paletteId}/${colorId}`}
+            /**
+             * *when user clicks on the MORE link, the click event is propagated upwards to the ColorBox component and
+             * ! the copied color animation and overlay is flashed on screen for a brief moment
+             * * so to stop that we use stopPropagation()
+             */
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="ColorBox-see-more">More</span>
+          </Link>
         </div>
       </CopyToClipboard>
     );

@@ -8,6 +8,10 @@
   cursor: pointer;
 }
 
+.ColorBox.larger {
+  height: 50%
+}
+
 .ColorBox-button {
   width: 100px;
   height: 30px;
@@ -27,6 +31,10 @@
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
+}
+
+.ColorBox-button.backButton {
+  opacity: 1;
 }
 
 .ColorBox:hover .ColorBox-button {
